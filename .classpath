@@ -19,5 +19,7 @@
 	<classpathentry kind="lib" path="lib/guava-14.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/ws4j-1.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/secondstring-20120620.jar"/>
+	<classpathentry kind="lib" path="lib/jcommon-1.0.17.jar"/>
+	<classpathentry kind="lib" path="lib/jfreechart-1.0.14.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import analyser.charts.PieChart;
 import analyser.dataobjects.BlogURLInfo;
 
 import com.google.common.collect.HashMultiset;
@@ -86,7 +87,8 @@ public class Analyser {
 		
 	}
 	
-	private static void getNMaxUsedTopicsByCity(List<BlogURLInfo> result,String city,int n){
+	private static Map<String,Integer> getNMaxUsedTopicsByCity(List<BlogURLInfo> result,String city,int n){
+		Map<String,Integer> data = Maps.newHashMap();
 		Multiset<String> wordsMultiset = HashMultiset.create();
 		
 
@@ -102,12 +104,13 @@ public class Analyser {
 		int i=0;
 		for (String type : Multisets.copyHighestCountFirst(wordsMultiset).elementSet()) {
 		    System.out.println(type + ": " + wordsMultiset.count(type));
+		    data.put(type, wordsMultiset.count(type));
 		    i++;
 		    if(i==n){
 		    	break;
 		    }
 		}
-		
+		return data;
 	}
 	public static void main(String[] args) {
 		
@@ -137,7 +140,10 @@ public class Analyser {
 		    //getTopicsByCity("seattle",result); 
 		    //getMaxUsedTopics(result);
 		    getAllCities(result);
-		    getNMaxUsedTopicsByCity(result, "new york", 5);
+		    Map<String,Integer> data = getNMaxUsedTopicsByCity(result, "new york", 5);
+		    PieChart demo = new PieChart("Comparison", "Top 5 topics in NY",data);
+	        demo.pack();
+	        demo.setVisible(true);
 		    
 		}catch(Exception e){
 			
