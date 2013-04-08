@@ -25,7 +25,7 @@ public class Analyser {
 	private static Connection getDBConnection(){
 		 String url = "jdbc:mysql://localhost:3306/interestDemograph";
 	        String user = "root";
-	        String password = "root";
+	        String password = "pass";
 	        Connection conn = null; 
 
 	        try {
@@ -145,6 +145,15 @@ public class Analyser {
 	        demo.pack();
 	        demo.setVisible(true);
 		    
+	        data = getNMaxUsedTopicsByCity(result, "seattle", 5);
+	        demo = new PieChart("Comparison", "Top 5 topics in seattle",data);
+	        demo.pack();
+	        demo.setVisible(true);
+		   
+	        data = getNMaxUsedTopicsByCity(result, "mysore", 5);
+	        demo = new PieChart("Comparison", "Top 5 topics in mysore",data);
+	        demo.pack();
+	        demo.setVisible(true);
 		}catch(Exception e){
 			
 			
