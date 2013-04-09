@@ -25,7 +25,7 @@ public class Analyser {
 	private static Connection getDBConnection(){
 		 String url = "jdbc:mysql://localhost:3306/interestDemograph";
 	        String user = "root";
-	        String password = "pass";
+	        String password = "root";
 	        Connection conn = null; 
 
 	        try {

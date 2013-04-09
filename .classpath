@@ -21,5 +21,10 @@
 	<classpathentry kind="lib" path="lib/secondstring-20120620.jar"/>
 	<classpathentry kind="lib" path="lib/jcommon-1.0.17.jar"/>
 	<classpathentry kind="lib" path="lib/jfreechart-1.0.14.jar"/>
+	<classpathentry kind="lib" path="lib/jsoup-1.7.2.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Maui1.2/lib/jsoup-1.7.2-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

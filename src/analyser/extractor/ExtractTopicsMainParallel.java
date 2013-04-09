@@ -1,4 +1,4 @@
-package maui.main;
+package analyser.extractor;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,6 +12,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+
+import maui.main.MauiWrapper;
 
 public class ExtractTopicsMainParallel {
 	static String vocabularyName = "agrovoc_en";

@@ -1,16 +1,17 @@
-package maui.main;
+package analyser.extractor;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
-public class ExtractTopicsMain {
+import maui.main.MauiWrapper;
+
+public class ExtractTopicsMainByGeoMF {
 	static String vocabularyName = "agrovoc_en";
 	static String modelName = "fao780";
 	static String dataDirectory = "../Maui1.2/";
