@@ -1,6 +1,7 @@
 log/*
 bin/*
 consoleLog
+
 # Compiled source #
 ###################
 *.com
