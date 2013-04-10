@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +20,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Multiset;
+
 import analyser.dataobjects.AuthorInfo;
 
 public class ExtractTopicsFromFileEntirely {
@@ -27,8 +32,8 @@ public class ExtractTopicsFromFileEntirely {
 	static String dataDirectory = "../Maui1.2/";
 	static String path = "/home/kira/CommonCrawl/N-Quads/MicroData/blogspot.com/extractedNQs/";
 	public static final int FILE_SIZE = 5*1024 * 1024;
-	
-
+	 
+	public static Multiset<String>seenUrls = HashMultiset.create();
 	   
 	private static void insertToDB(File file,PreparedStatement pstmt,MauiWrapper wrapper) {
 	   
@@ -46,14 +51,25 @@ public class ExtractTopicsFromFileEntirely {
 	    	String line;
 	    	String[] tmp = null;
 	    	String profileUrl = null,blogUrl=null;
-	    	
+	    	String ua = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0";
 	    	logger.log(Level.INFO, "Scanning file:"+file.getName()); 
 	    	while ((line = br.readLine()) != null) {
 	    		if(line.contains("http://www.blogger.com/profile/")){
 	    			tmp = line.split(" ");
 	    			profileUrl = tmp[2].substring(1, tmp[2].length()-1);
+	    			if(seenUrls.contains(profileUrl)){
+	    				logger.log(Level.INFO, "Seen url:"+profileUrl);
+	    				continue;
+	    			}else{
+	    				seenUrls.add(profileUrl);
+		    			
+	    			}
+	    			
 	    			blogUrl = tmp[3].substring(1, tmp[3].length()-1);
-	    			Document doc = Jsoup.connect(profileUrl).timeout(10000).get();
+	    			Map<String,String> cookies = Maps.newHashMap();
+	    			org.jsoup.Connection conn = Jsoup.connect(profileUrl).userAgent(ua).cookies(cookies);
+	    			Document doc = conn.timeout(5000).get();
+	    			Thread.sleep(60000);
 	    			Element table = doc.select("table").first();
 	    			String state="",city="",country="";
 	    			if(table!=null){
@@ -159,7 +175,9 @@ public class ExtractTopicsFromFileEntirely {
 	
 
 	private static void crawlDirectoryAndProcessFiles(File directory,PreparedStatement pstmt,MauiWrapper wrapper) {
-	    for (File file : directory.listFiles()) {
+	    File[] files = directory.listFiles();
+		for (int i=11;i<files.length;i++) {
+			File file = files[i];
 	    	if (file.isFile()) {
 		        
 	    		if(file.getName().endsWith(".sort")){

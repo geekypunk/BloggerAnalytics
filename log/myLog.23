@@ -14,3 +14,11 @@ Apr 09, 2013 7:46:52 PM analyser.extractor.ExtractTopicsFromFileEntirely insertT
 INFO: Scanning file:html-microdata-00075.nq.sort
 Apr 09, 2013 7:46:53 PM analyser.extractor.ExtractTopicsFromFileEntirely insertToDB
 WARNING: org.jsoup.HttpStatusException: HTTP error fetching URL. Status=503, URL=http://www.blogger.com/sorry/?continue=http://www.blogger.com/profile/12803759124643467711
+Apr 10, 2013 3:23:28 PM analyser.extractor.ExtractTopicsFromFileEntirely insertToDB
+INFO: Scanning file:html-microdata-00056.nq.sort
+Apr 10, 2013 3:23:29 PM analyser.extractor.ExtractTopicsFromFileEntirely insertToDB
+WARNING: org.jsoup.HttpStatusException: HTTP error fetching URL. Status=503, URL=http://www.blogger.com/sorry/?continue=http://www.blogger.com/profile/08580337786687387137
+Apr 10, 2013 3:23:29 PM analyser.extractor.ExtractTopicsFromFileEntirely insertToDB
+INFO: Scanning file:html-microdata-00075.nq.sort
+Apr 10, 2013 3:23:30 PM analyser.extractor.ExtractTopicsFromFileEntirely insertToDB
+WARNING: org.jsoup.HttpStatusException: HTTP error fetching URL. Status=503, URL=http://www.blogger.com/sorry/?continue=http://www.blogger.com/profile/12803759124643467711
