@@ -10,6 +10,8 @@ import java.util.Map;
 
 import analyser.charts.PieChart;
 import analyser.dataobjects.BlogURLInfo;
+import analyser.utils.ConnectionUtils;
+import analyser.utils.StringUtils;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Lists;
@@ -22,27 +24,7 @@ public class Analyser {
 	/**
 	 * @param args
 	 */
-	private static Connection getDBConnection(){
-		 String url = "jdbc:mysql://localhost:3306/interestDemograph";
-	        String user = "root";
-	        String password = "root";
-	        Connection conn = null; 
-
-	        try {
-	            conn = DriverManager.getConnection(url, user, password);
-	        }catch(Exception e){
-	        	e.printStackTrace();
-	        	
-	        }
-	        return conn;
-	}
-	private static List<String> convertToStringList(String s){
-		
-		String newString = s.substring(1, s.length()-2);
-		List<String> items = Arrays.asList(newString.split("\\s*,\\s*"));
-		return items;
-		
-	}
+	
 	
 	private static void getTopicsByCity(String city,List<BlogURLInfo> result){
 		Map<String,Integer> topicCount = Maps.newHashMap();
@@ -117,7 +99,7 @@ public class Analyser {
 		
 		try{
 		
-			Connection conn = getDBConnection();
+			Connection conn = ConnectionUtils.getDBConnection();
 			Statement st = conn.createStatement();
 		    String query ="SELECT BlogURLTopics.BlogURL, BlogURLTopics.TopicsCSV, BlogURLSDemographs.City, BlogURLSDemographs.State, BlogURLSDemographs.Country"; 
 		    query+=" FROM BlogURLSDemographs, BlogURLTopics";
@@ -132,7 +114,7 @@ public class Analyser {
 		    	obj.setCity(rs.getString("City"));
 		    	obj.setState(rs.getString("State"));
 		    	obj.setCountry(rs.getString("Country"));
-		    	obj.setTopics(convertToStringList(rs.getString("TopicsCSV")));
+		    	obj.setTopics(StringUtils.convertToStringList(rs.getString("TopicsCSV")));
 		    	result.add(obj);  
 		    
 		    }
