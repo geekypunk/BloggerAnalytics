@@ -25,7 +25,7 @@ public class ExtractTopicsFromBloggerProfsCommomCorpus {
 	static String vocabularyName = "agrovoc_en";
 	static String modelName = "fao780";
 	static String dataDirectory = "../Maui1.2/";
-	static String path = "/home/kira/CommonCrawl/URLIndex-Blogger/htmlDumps/";
+	static String path = "/home/kira/CommonCrawl/URLIndex-Blogger/htmlDump-Total/";
 	public static final int FILE_SIZE = 5*1024 * 1024;
 	 
 	public static Multiset<String>seenUrls = HashMultiset.create();
@@ -39,7 +39,7 @@ public class ExtractTopicsFromBloggerProfsCommomCorpus {
 	    	String[] tmp = null;
 	    	String profileUrl = null,blogUrl="";
 	    	while ((line = br.readLine()) != null) {
-	    		if(line.contains("http://www.blogger.com/profile/")){
+	    		if(line.contains("blogger.com/profile/")){
 	    			tmp = line.split(" ");	
 	    			profileUrl = tmp[0];
 	    			break;

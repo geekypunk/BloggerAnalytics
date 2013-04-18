@@ -1,65 +1,23 @@
 package analyser.main;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.google.translate.api.v2.core.Translator;
-import org.google.translate.api.v2.core.TranslatorException;
-import org.google.translate.api.v2.core.model.Translation;
-
 import analyser.charts.PieChart;
-import analyser.dataobjects.AuthorInfo;
 import analyser.utils.ConnectionUtils;
 import analyser.utils.StringUtils;
 
-import com.google.api.GoogleAPI;
-import com.google.api.GoogleAPIException;
-import com.google.api.translate.Language;
-import com.google.api.translate.Translate;
 import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multiset;
 import com.google.common.collect.Multisets;
 
 public class BloggerAuthorInfoAnalyser {
 
-	
-	private static List<AuthorInfo> getDBToMemory(){
-		
-		List<AuthorInfo> result = Lists.newArrayList();
-		try{
-		
-			String query ="SELECT * FROM  BloggerAuthorInfo";
-		    ResultSet rs = ConnectionUtils.executeSELECTSQL(query);
-		    
-		    while (rs.next()){
-		    	
-		    	AuthorInfo obj = new AuthorInfo();
-		    	obj.setCity(rs.getString("City"));
-		    	obj.setState(rs.getString("State"));
-		    	obj.setCountry(rs.getString("Country"));
-		    	obj.setGender(rs.getString("Gender"));
-		    	obj.setOccupation(rs.getString("Occupation"));
-		    	obj.setInterests(rs.getString("Interests"));
-		    	obj.setIntroduction(rs.getString("Introduction"));
-		    	obj.setFavouriteBooks(rs.getString("Favourite Books"));
-		    	obj.setFavouriteFilms(rs.getString("Favourite Films"));
-		    	obj.setFavouriteMusic(rs.getString("Favourite Music"));
-		    	result.add(obj);  
-		    
-		    }
-		}catch(Exception e){
-			
-		}
-		return result;
-	}
-	
+
 	public static Map<String,Integer> getMajorOccupations(String city,String state,String country,String gender,int argsC,int n) throws SQLException{
 		
 		Map<String,Integer> data = Maps.newHashMap();
@@ -152,8 +110,10 @@ public class BloggerAuthorInfoAnalyser {
 		if(state.length()>0){
 			sql+=" State="+"'"+state+"'"+" AND ";
 		}
-		if(country.length()>0){
+		if(country.length()>0 && gender.length()>0){
 			sql+=" Country="+"'"+country+"'"+" AND ";
+		}else{
+			sql+=" Country="+"'"+country+"'";
 		}
 		if(gender.length()>0){
 			sql+=" Gender="+"'"+gender+"'";
@@ -166,6 +126,7 @@ public class BloggerAuthorInfoAnalyser {
 		}
 		return sql;
 	} 
+	/*
 	public static String translate() throws GoogleAPIException{
 
 	    // Set the Google Translate API key
@@ -186,24 +147,24 @@ public class BloggerAuthorInfoAnalyser {
 		System.out.println("Detected Language " + fromUnknown.getDetectedSourceLanguage());
 		return fromUnknown.getTranslatedText();
         
-	}
+	}*/
 	public static void main(String[] args) {
 		
 		try{
 			
-			String country = "Spain";
-			System.out.println(getBloggersCount("", "", country, "", 1));
-			Map<String,Integer> data = getMajorOccupations("", "", country, "", 1,30);
-			PieChart demo = new PieChart("Comparison", "Top 5 topics",data);
+			String country = "United States";
+			String state = "California";
+			System.out.println(getBloggersCount("", state, country, "", 2));
+			Map<String,Integer> data = getMajorOccupations("", "", country, "", 1,10);
+			PieChart demo = new PieChart("Comparison", "Top 10 blogger's occupations in "+country,data);
 		    demo.pack();
 		    demo.setVisible(true);
 		    
 		    
-		    data = getInterestsIntro("", "", country, "", 1,30);
-			demo = new PieChart("Comparison", "Top 5 topics",data);
+		    data = getInterestsIntro("", state, country, "", 2,10);
+			demo = new PieChart("Comparison", "Top 10 blogged topics in "+country,data);
 		    demo.pack();
 		    demo.setVisible(true);
-		    translatev2("Bonjour le monde");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
