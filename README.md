@@ -1,4 +1,4 @@
-CommonCrawlURLIndex-Blogger
+BloggerDemoGraph Analyser
 ===========================
 
-CommonCrawlURLIndex-Blogger
+Finds blooger demographics from Amazon Common corpus data
