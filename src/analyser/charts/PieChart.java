@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
@@ -16,14 +17,15 @@ public class PieChart extends JFrame {
 
   private static final long serialVersionUID = 1L;
 
+  private JFreeChart chart;
   public PieChart(String applicationTitle, String chartTitle,Map<String,Integer> data) {
         super(applicationTitle);
         // This will create the dataset 
         PieDataset dataset = createDataset(data);
         // based on the dataset we create the chart
-        JFreeChart chart = createChart(dataset, chartTitle);
+        this.chart = createChart(dataset, chartTitle);
         // we put the chart into a panel
-        ChartPanel chartPanel = new ChartPanel(chart);
+        ChartPanel chartPanel = new ChartPanel(this.chart);
         // default size
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         // add it to our application
@@ -66,7 +68,16 @@ public class PieChart extends JFrame {
         plot.setStartAngle(290);
         plot.setDirection(Rotation.CLOCKWISE);
         plot.setForegroundAlpha(0.5f);
+        StandardPieSectionLabelGenerator labelGenerator
+    	= new StandardPieSectionLabelGenerator("{0} {2}");
+    	plot.setLabelGenerator(labelGenerator);
+    	plot.setLegendLabelGenerator(labelGenerator);
         return chart;
         
     }
+
+	public JFreeChart getChartObj() {
+		// TODO Auto-generated method stub
+		return this.chart;
+	}
 } 

@@ -1,10 +1,13 @@
 package analyser.main;
 
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import org.jfree.chart.ChartUtilities;
 
 import analyser.charts.PieChart;
 import analyser.dataobjects.AuthorInfo;
@@ -218,26 +221,31 @@ public class BloggerAuthorInfoAnalyser {
 		
 		try{
 			
-			String country = "United States";
-			String state = "New York";
-			String city = "Los Angeles";
+			String country = "India";
+			String state = "";
+			String city = "Hyderabad";
 			String topic = "music";
 			System.out.println(getBloggersCount("", state, country, "", 2));
 			Map<String,Integer> data = Maps.newHashMap();
 			PieChart demo = null;
 
-			
+			/*
 			data = getMajorOccupations("", "", country, "", 1,10);
 			demo = new PieChart("Comparison", "Top 10 blogger's occupations in "+country,data);
 		    demo.pack();
 		    demo.setVisible(true);
-		    /*
+		    */
+		    String chartTitle ="";
 		    
-		    data = getInterestsIntro("", state, country, "", 2,10);
-			demo = new PieChart("Comparison", "Top 10 blogged topics in "+country,data);
+		    data = getInterestsIntro(city, state, country, "", 2,10);
+		    chartTitle = "Top 10 blogged topics in "+city+","+state+","+country;
+		    //File chartImage = new File("/home/kira/Maui1.2/SnapShots/"+chartTitle+".PNG");
+		    //chartImage.createNewFile();
+			demo = new PieChart("Comparison",chartTitle ,data);
 		    demo.pack();
 		    demo.setVisible(true);
-		    
+		    //ChartUtilities.saveChartAsPNG(chartImage, demo.getChartObj(), 50,50);
+		    /*
 		    data = getCitiesByTopics(topic,10);
 			demo = new PieChart("Comparison", "Top 10 cities with interest in "+topic,data);
 		    demo.pack();

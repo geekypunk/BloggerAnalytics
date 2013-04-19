@@ -16,7 +16,7 @@ public class StringUtils {
 	}
 	public static List<String> convertToStringList(String s){
 		
-		List<String> items = Arrays.asList(s.split("\\s*,\\s*"));
+		List<String> items = Arrays.asList(s.split("\\s*,\\s*|\\s+"));
 		return items;
 		
 	}
