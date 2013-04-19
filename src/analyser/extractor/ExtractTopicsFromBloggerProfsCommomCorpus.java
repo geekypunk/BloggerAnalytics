@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.util.logging.Level;
 
 import maui.main.MauiWrapper;
 
