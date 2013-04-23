@@ -10,7 +10,7 @@ public class ConnectionUtils {
 	public static Connection getDBConnection(){
         String url = "jdbc:mysql://localhost:3306/interestDemograph";
         String user = "root";
-        String password = "root";
+        String password = "";
         Connection conn = null; 
 
         try {

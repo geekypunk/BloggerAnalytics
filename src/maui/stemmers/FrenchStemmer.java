@@ -271,11 +271,7 @@ public class FrenchStemmer extends Stemmer {
 				sb.setCharAt( sb.length()-1, 'i' );
 				setStrings();
 			}
-			else if (ch == '�')
-			{
-				sb.setCharAt( sb.length()-1, 'c' );
-				setStrings();
-			}
+			
 		}
 	}
 
@@ -290,7 +286,7 @@ public class FrenchStemmer extends Stemmer {
 			if (ch == 's')
 			{
 				char b = sb.charAt( sb.length()-2 );
-				if (b != 'a' && b != 'i' && b != 'o' && b != 'u' && b != '�' && b != 's')
+				if (b != 'a' && b != 'i' && b != 'o' && b != 'u'  && b != 's')
 				{
 					sb.delete( sb.length() - 1, sb.length());
 					setStrings();
@@ -338,11 +334,7 @@ public class FrenchStemmer extends Stemmer {
 				{
 					if (!seenVowel)
 					{
-						if (ch == '�' || ch == '�')
-						{
-							pos = i;
-							break;
-						}
+						
 					}
 					seenVowel = true;
 				}
@@ -552,7 +544,7 @@ public class FrenchStemmer extends Stemmer {
 			case 'o':
 			case 'u':
 			case 'y':
-			case '�':
+			
 				return true;
 			default:
 				return false;

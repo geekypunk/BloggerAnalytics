@@ -1,13 +1,10 @@
 package analyser.main;
 
-import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import org.jfree.chart.ChartUtilities;
 
 import analyser.charts.PieChart;
 import analyser.dataobjects.AuthorInfo;
@@ -157,7 +154,7 @@ public class BloggerAuthorInfoAnalyser {
 		}
 		if(country.length()>0 && gender.length()>0){
 			sql+=" Country="+"'"+country+"'"+" AND ";
-		}else{
+		}else if ((country.length()>0 && gender.length() == 0)){
 			sql+=" Country="+"'"+country+"'";
 		}
 		if(gender.length()>0){
@@ -214,8 +211,55 @@ public class BloggerAuthorInfoAnalyser {
 		}	
 		Map<String, Integer> data = getTopNData(n, cityMultiset);
 		return data;
+	}
+	public static Map<String,Integer> getTopNBloggingCities(int n) throws SQLException{
 		
-	
+		Multiset<String> cityMultiset = HashMultiset.create();
+		
+		List<AuthorInfo> list = getInMemory();
+		
+		for(AuthorInfo ai : list){
+				if(ai.getCity()!=null)
+					cityMultiset.add(ai.getCity());
+			
+				if(ai.getCity()!=null)
+					cityMultiset.add(ai.getCity());
+
+			
+		}	
+		Map<String, Integer> data = Maps.newHashMap();
+		if(n==0){
+			 data = getTopNData(cityMultiset.size(), cityMultiset);
+		}
+		else{
+			 data = getTopNData(n, cityMultiset);
+
+		}
+		
+		return data;
+	}
+	public static Map<String,Integer> getTopNBloggingCitiesByGender(String gender,int n) throws SQLException{
+		
+		Multiset<String> cityMultiset = HashMultiset.create();
+		
+		List<AuthorInfo> list = getInMemory();
+		for(AuthorInfo ai : list){
+			if(ai.getGender()!=null && ai.getGender().contains(gender)){
+				if(ai.getCity()!=null)
+					cityMultiset.add(ai.getCity());
+			}
+			
+		}	
+		Map<String, Integer> data = Maps.newHashMap();
+		if(n==0){
+			 data = getTopNData(cityMultiset.size(), cityMultiset);
+		}
+		else{
+			 data = getTopNData(n, cityMultiset);
+
+		}
+		
+		return data;
 	}
 	public static void main(String[] args) {
 		
@@ -224,8 +268,9 @@ public class BloggerAuthorInfoAnalyser {
 			String country = "India";
 			String state = "";
 			String city = "Hyderabad";
-			String topic = "music";
-			System.out.println(getBloggersCount("", state, country, "", 2));
+			String topic;
+			String gender;
+			System.out.println(getBloggersCount("", "", "", "", 0));
 			Map<String,Integer> data = Maps.newHashMap();
 			PieChart demo = null;
 
@@ -235,22 +280,32 @@ public class BloggerAuthorInfoAnalyser {
 		    demo.pack();
 		    demo.setVisible(true);
 		    */
-		    String chartTitle ="";
+		   // String chartTitle ="";
 		    
-		    data = getInterestsIntro(city, state, country, "", 2,10);
-		    chartTitle = "Top 10 blogged topics in "+city+","+state+","+country;
-		    //File chartImage = new File("/home/kira/Maui1.2/SnapShots/"+chartTitle+".PNG");
-		    //chartImage.createNewFile();
-			demo = new PieChart("Comparison",chartTitle ,data);
-		    demo.pack();
-		    demo.setVisible(true);
-		    //ChartUtilities.saveChartAsPNG(chartImage, demo.getChartObj(), 50,50);
-		    /*
+		    //data = getInterestsIntro(city, state, country, "Female", 2,10);
+			//demo = new PieChart("Comparison","" ,data);
+		   // demo.pack();
+		   // demo.setVisible(true);
+		    
+			/*
+			topic = "";
 		    data = getCitiesByTopics(topic,10);
 			demo = new PieChart("Comparison", "Top 10 cities with interest in "+topic,data);
 		    demo.pack();
 		    demo.setVisible(true);
 		    */
+			/*
+		    data = getTopNBloggingCities(10);
+			demo = new PieChart("Comparison", "Top 10 cities with bloggers",data);
+		    demo.pack();
+		    demo.setVisible(true);
+		    */
+			gender = "Female";
+			data = getTopNBloggingCitiesByGender(gender,10);
+			demo = new PieChart("Comparison", "Top 10 cities with "+gender+" bloggers",data);
+			demo.pack();
+			demo.setVisible(true);
+		    
 		}catch(Exception e){
 			e.printStackTrace();
 		}
