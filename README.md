@@ -1,14 +1,14 @@
 BloggerDemoGraph Analyser
 ===========================
 
-Finds blogger demographics from Amazon Common corpus data. The data is crawled blogger profile webpage(Ex- http://www.blogger.com/profile/10171345732985610861) in common-crawl located using the URL index(http://commoncrawl.org/common-crawl-url-index/)
+Finds blogger demographics from Amazon Common corpus data. The data is crawled blogger profile webpage(Ex- <http://www.blogger.com/profile/10171345732985610861>) in common-crawl located using the URL index(<http://commoncrawl.org/common-crawl-url-index/>)
 
 
 Technology Stack
 ==================
 
 1) Python script to selectively download data from common-crawl. AWS Java SDK was posing issues.
-2) Maui(http://code.google.com/p/maui-indexer/), to extract topics from raw text
+2) Maui(<http://code.google.com/p/maui-indexer/>), to extract topics from raw text. Here I used the AGROVOC vocabulary(<http://aims.fao.org/standards/agrovoc>) with Maui to extract topics .
 3) JFreeChart to displaying charts
 
 

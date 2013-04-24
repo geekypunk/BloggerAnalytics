@@ -3,7 +3,17 @@ BloggerDemoGraph Analyser
 
 Finds blogger demographics from Amazon Common corpus data. The data is crawled blogger profile webpage(Ex- http://www.blogger.com/profile/10171345732985610861) in common-crawl located using the URL index(http://commoncrawl.org/common-crawl-url-index/)
 
+
+Technology Stack
+==================
+
+1) Python script to selectively download data from common-crawl. AWS Java SDK was posing issues.
+2) Maui(http://code.google.com/p/maui-indexer/), to extract topics from raw text
+3) JFreeChart to displaying charts
+
+
 Some finds
+==============
 
 1) 25% of blogger from Bangalore write about Music(Not so surprising as it is the rock capital of india)
 2) NY, SF and Toronto account for 40% of the bloggers.
