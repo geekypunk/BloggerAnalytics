@@ -43,7 +43,7 @@ The technology stack of the project comprises of
   3) MySQL database is used to dump the rough results of the crawl
   4) JFreeChart is used to display charts.
 
-Thought process which made arrive to this implementation stack
+Thought process which made me arrive to this implementation stack
 ================================================================
 
 Reason to use URL Index
