@@ -1,0 +1,32 @@
+This project aims at profiling blogger interests correlated with their demographics. 
+
+Amazon's Common-Crawl corpus was used for this purpose. I extracted the crawled data corresponding to the blogger profile webpages
+as the dataset for my analysis.
+
+The selective download of the required dataset was made possible by the Common Crawl URL Index(https://github.com/trivio/common_crawl_index) by Scott Robertson(https://angel.co/srobertson)
+
+The technology stack of the project comprises of
+  1) Python script to facilitate downloading the selective chunks of ARC files in Common-Crawl corpus
+  2) Maui(http://code.google.com/p/maui-indexer/) to extract topics from raw text. This was used in conjunction with AGROVOC vocabulary(http://aims.fao.org/standards/agrovoc)
+  3) MySQL database is used to dump the rough results of the crawl
+  4) JFreeChart is used to display charts.
+
+Thought process which made arrive to this implementation stack
+-----------------------------------
+
+Reason to use URL Index
+-----------------------
+Cost aversion was a factor which lead me to use the URL index, thus allowing for all the computation to be done in my local machine
+
+Reason to use Maui
+-----------------
+Maui is a topic extractor having the ability to extract topic terms from text, even those which are not actually present in the text
+For example, it could give me "Politics" as a topic, even though the terms politics or any of its roots not being mentioned in the text.
+Maui consumes RDF based vocabularies for topic extraction.I used the latest version of AGROVOC vocabulary as it contains a broad array of topics
+
+Reason to use blogger profile webpages
+----------------------------
+Since I wanted to analyse blogger interests based on demographical information, these profile pages served as a rich source of that information.
+It was possible to infer about the topics which are of interest to the blogger, without actually having to crawl his entire blog.
+As this was just a Proof of Concept(PoC) project, this minimed the computation cost as everthing was done locally, without the need of EC2
+
