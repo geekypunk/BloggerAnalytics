@@ -43,6 +43,11 @@ The technology stack of the project comprises of
   3) MySQL database is used to dump the rough results of the crawl
   4) JFreeChart is used to display charts.
 
+Data used
+-----------------
+There were about 8000 blogger profile urls that were found using the URL index on the Common-Crawl corpus data. The resultant
+HTML dumps of these webpages was just about 100MB. These dumps were in-turn used for analysis.
+
 Thought process which made me arrive to this implementation stack
 ================================================================
 
