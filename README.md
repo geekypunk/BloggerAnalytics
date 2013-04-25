@@ -1,7 +1,10 @@
 BloggerDemoGraph Analyser
 ===========================
 
-Finds blogger demographics from Amazon Common corpus data. The data is crawled blogger profile webpage(Ex- <http://www.blogger.com/profile/10171345732985610861>) in common-crawl located using the URL index(<http://commoncrawl.org/common-crawl-url-index/>)
+Finds blogger demographics from Amazon Common corpus data. The data extracted for analysis from the corpus is the crawled blogger profile webpage. [Sample Page](http://www.blogger.com/profile/10171345732985610861). 
+
+Special credit to [URL index](http://commoncrawl.org/common-crawl-url-index/) by [Scott Robertson](https://angel.co/srobertson), which made the data analysis possible just in my local machine, without the need for aws.
+
 
 
 Technology Stack
