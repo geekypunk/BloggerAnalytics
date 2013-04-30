@@ -8,14 +8,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
-import maui.main.MauiWrapper;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import analyser.dataobjects.AuthorInfo;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
@@ -32,7 +26,7 @@ public class ExtractBlogURLS {
 	    	BufferedReader br = new BufferedReader(new FileReader(file));
 	    	String line;
 	    	String[] tmp = null;
-	    	String profileUrl = null,blogUrl="";
+	    	String profileUrl = null;
 	    	while ((line = br.readLine()) != null) {
 	    		if(line.contains("blogger.com/profile/")){
 	    			tmp = line.split(" ");	
@@ -45,18 +39,6 @@ public class ExtractBlogURLS {
 			}else{
 				seenUrls.add(profileUrl);
 		    	Document doc = Jsoup.parse(file, "UTF-8", "");		
-				Element table = doc.select("table").first();
-				String state="",city="",country="";
-				
-				if(table!=null){
-					
-					pstmt.setString(1, ai.getProfileUrl());
-					pstmt.setString(2, ai.getCity());
-					
-					pstmt.executeUpdate();
-					}
-				}
-		
 			}
 	    	
 	    	br.close();
